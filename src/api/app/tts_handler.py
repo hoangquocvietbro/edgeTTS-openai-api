@@ -19,7 +19,7 @@ voice_mapping = {
     'shimmer': 'en-US-EmmaNeural'
 }
 
-async def _generate_audio(text, voice, response_format, speed,rate=None, volume=None, pitch=None,proxy=None):
+async def _generate_audio(text, voice, response_format, speed=1.0,rate=None, volume=None, pitch=None,proxy=None):
     # Determine if the voice is an OpenAI-compatible voice or a direct edge-tts voice
     edge_tts_voice = voice_mapping.get(voice, voice)  # Use mapping if in OpenAI names, otherwise use as-is
 
@@ -51,8 +51,8 @@ async def _generate_audio(text, voice, response_format, speed,rate=None, volume=
 
     return converted_output_file.name
 
-def generate_speech(text, voice, response_format, speed=1.0):
-    return asyncio.run(_generate_audio(text, voice, response_format, speed))
+def generate_speech(text, voice, response_format, speed=1.0, rate=None, volume=None, pitch=None, proxy=None):
+    return asyncio.run(_generate_audio(text, voice, response_format, speed, rate, volume, pitch, proxy))
 
 def get_models():
     return [
