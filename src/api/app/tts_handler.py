@@ -19,13 +19,13 @@ voice_mapping = {
     'shimmer': 'en-US-EmmaNeural'
 }
 
-async def _generate_audio(text, voice, response_format, speed):
+async def _generate_audio(text, voice, response_format, speed,rate=None, volume=None, pitch=None,proxy=None):
     # Determine if the voice is an OpenAI-compatible voice or a direct edge-tts voice
     edge_tts_voice = voice_mapping.get(voice, voice)  # Use mapping if in OpenAI names, otherwise use as-is
 
     # Generate the TTS output in mp3 format first
     temp_output_file = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
-    communicator = edge_tts.Communicate(text, edge_tts_voice)
+    communicator = edge_tts.Communicate(text, edge_tts_voice,rate,volume,pitch,proxy)
     await communicator.save(temp_output_file.name)
 
     # If the requested format is mp3 and speed is 1.0, return the generated file directly
