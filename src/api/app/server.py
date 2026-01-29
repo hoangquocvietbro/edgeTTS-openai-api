@@ -71,11 +71,14 @@ def text_to_speech():
 
     response_format = data.get('response_format', DEFAULT_RESPONSE_FORMAT)
     speed = float(data.get('speed', DEFAULT_SPEED))
-    
+    rate = data.get('rate', None)
+    volume = data.get('volume', None)
+    pitch = data.get('pitch', None)
+    proxy = data.get('proxy', None)
     mime_type = AUDIO_FORMAT_MIME_TYPES.get(response_format, "audio/mpeg")
 
     # Generate the audio file in the specified format with speed adjustment
-    output_file_path = generate_speech(text, voice, response_format, speed)
+    output_file_path = generate_speech(text, voice, response_format, speed, rate, volume, pitch, proxy)
 
     # Return the file with the correct MIME type
     return send_file(output_file_path, mimetype=mime_type, as_attachment=True, download_name=f"speech.{response_format}")
