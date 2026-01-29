@@ -25,7 +25,7 @@ async def _generate_audio(text, voice, response_format, speed=1.0,rate=None, vol
 
     # Generate the TTS output in mp3 format first
     temp_output_file = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
-    communicator = edge_tts.Communicate(text, edge_tts_voice,rate,volume,pitch,proxy)
+    communicator = edge_tts.Communicate(text, edge_tts_voice, rate=rate, volume=volume, pitch=pitch, proxy=proxy)
     await communicator.save(temp_output_file.name)
 
     # If the requested format is mp3 and speed is 1.0, return the generated file directly
